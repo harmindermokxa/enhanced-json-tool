@@ -142,7 +142,26 @@ public class EnhancedJsonTool extends DefaultApplicationPlugin {
                     if ("true".equalsIgnoreCase(getPropertyString("debugMode"))) {
                         LogUtil.info(EnhancedJsonTool.class.getName(), "Custom JSON Payload : " + getPropertyString("customPayload"));
                     }
-                } else {
+                }
+                else if ("beanshell".equals(getPropertyString("postMethod"))) {
+                	  Interpreter interpreter = new Interpreter();
+                	   interpreter.setClassLoader(getClass().getClassLoader());
+                	   for (Object key : properties.keySet()) {
+                           interpreter.set(key.toString(), properties.get(key));
+                       }
+                	String script=getPropertyString("beanshell");
+                	
+                	 LogUtil.debug(getClass().getName(), "Executing script " + script);
+                     Object result = interpreter.eval(script);
+                	String body=(String) result;
+                	   
+                	StringEntity requestEntity = new StringEntity(body, "UTF-8");
+                    ((HttpPost) request).setEntity(requestEntity);
+                    request.setHeader("Content-type", "application/json");
+                    if ("true".equalsIgnoreCase(getPropertyString("debugMode"))) {
+                        LogUtil.info(EnhancedJsonTool.class.getName(), "BEANSHELL BODY" + body);
+                    }
+                }else {
                     MultipartEntityBuilder builder = MultipartEntityBuilder.create();
                     Object[] paramsValues = (Object[]) properties.get("params");
                     for (Object o : paramsValues) {

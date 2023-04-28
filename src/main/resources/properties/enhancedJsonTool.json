@@ -45,6 +45,11 @@
                {
                   "value":"jsonPayload",
                   "label":"@@app.jsontool.postMethod.jsonPayload@@"
+               }
+               ,
+               {
+                  "value":"beanshell",
+                  "label":"@@app.jsontool.postMethod.beanshell@@"
                },
                {
                   "value":"custom",
@@ -80,6 +85,17 @@
             "mode":"json",
             "control_field":"postMethod",
             "control_value":"custom",
+            "control_use_regex":"false",
+            "required":"true"
+         },
+         {
+            "name":"beanshell",
+            "label":"@@app.jsontool.postMethod.beanshell@@",
+            "type":"codeeditor",
+            "description":"Injected variables :(WorkflowAssignment workflowAssignment ,HttpServletRequest httpRequest, PluginManager pluginManager & AppDefinition appDef)  return String jsonBody",
+            "mode":"java",
+            "control_field":"postMethod",
+            "control_value":"beanshell",
             "control_use_regex":"false",
             "required":"true"
          },
