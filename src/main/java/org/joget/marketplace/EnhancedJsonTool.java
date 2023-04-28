@@ -73,7 +73,7 @@ public class EnhancedJsonTool extends DefaultApplicationPlugin {
     }
 
     public String getVersion() {
-        return "7.0.3";
+        return "7.0.4";
     }
 
     public String getLabel() {
